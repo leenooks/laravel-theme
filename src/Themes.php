@@ -311,6 +311,11 @@ class Themes
     // Return url of current theme
     public function url($filename)
     {
+        // If the url starts with :// or http/https, then just return that.
+        if (preg_match('/^((http(s?):)?\/\/)/i', $filename)) {
+            return $filename;
+        }
+
         // If no Theme set, return /$filename
         if (!$this->current()) {
             return "/" . ltrim($filename, '/');
